@@ -71,6 +71,19 @@ exports.create2 = function (a, b) {
 };
 ```
 
+### methods
+
+by pass `methods` list, support only thunkify a part of methods in an object.
+
+```
+exports.create3 = function (a, b) {
+  var cal = new Cal(a, b);
+  thunkify(cal, cal, ['plus']);
+  // or
+  thunkify(cal, ['plus']);
+};
+```
+
 # License
 
   MIT

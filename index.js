@@ -7,21 +7,41 @@
 
 /**
  * Expose `thunkify()`.
+ * @param {Function | Object} input
+ * @param {Object} [ctx]
+ * @param {Array}  [methods]
+ * @return {Function}
+ * @api public
  */
 
-module.exports = function (input, ctx) {
+module.exports = function (input, ctx, methods) {
   var type = typeof input;
+
+  // thunkify function
   if (type === 'function') {
     return thunkify(input, ctx);
   }
 
-  ctx = ctx === undefined ? input : ctx;
+  // thunkify object
   if (type === 'object') {
-    for (var key in input) {
-      if (typeof input[key] === 'function') {
-        input[key] = thunkify(input[key], ctx);
+    if (Array.isArray(ctx)) {
+      methods = ctx;
+      ctx = input;
+    }
+    ctx = ctx === undefined ? input : ctx;
+    if (methods && methods.length) {
+      methods.forEach(function (method) {
+        input[method] = thunkify(input[method], ctx);
+      });
+    } else {
+      // thunkify all methods in input
+      for (var key in input) {
+        if (typeof input[key] === 'function') {
+          input[key] = thunkify(input[key], ctx);
+        }
       }
     }
+
     return input;
   }
 
@@ -32,7 +52,7 @@ module.exports = function (input, ctx) {
  * Wrap a regular callback `fn` as a thunk.
  *
  * @param {Function} fn
- * @param {Object} ctx
+ * @param {Object} [ctx]
  * @return {Function}
  * @api public
  */
@@ -44,7 +64,7 @@ function thunkify(fn, ctx) {
     var called;
     var cb;
 
-    args.push(function(){
+    args.push(function () {
       results = arguments;
 
       if (cb && !called) {
@@ -55,7 +75,7 @@ function thunkify(fn, ctx) {
 
     fn.apply(ctx || this, args);
 
-    return function(fn){
+    return function (fn) {
       cb = fn;
 
       if (results && !called) {
