@@ -1,6 +1,6 @@
 {
   "name": "thunkify-wrap",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": "dead-horse/node-thunkify-wrap",
   "description": "Turn callbacks, arrays, generators, generator functions, and promises into a thunk",
   "keywords": [

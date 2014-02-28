@@ -22,7 +22,7 @@ fs.readFile('package.json', 'utf8')(function(err, str){
 
 });
 
-// tunkfiy an object
+// thunkfiy an object
 var user = {
   add: function () {},
   show: function () {},
@@ -30,6 +30,45 @@ var user = {
 }
 
 module.exports = thunkify(user);
+```
+
+## ctx
+
+also you can pass `ctx` as contenxt into thunkify, and `thunkify(object)` will use object as the context by default.
+
+```js
+var thunkify = require('thunkify-wrap');
+var Cal = function (a, b) {
+  this.a = a;
+  this.b = b;
+};
+
+Cal.prototype.plus = function(callback) {
+  var self = this;
+  setTimeout(function () {
+    callback(null, self.a + self.b);
+  }, 5);
+};
+
+Cal.prototype.minus = function (callback) {
+  var self = this;
+  setTimeout(function () {
+    callback(null, self.a - self.b);
+  }, 5);
+};
+
+module.exports = Cal;
+
+exports.create1 = function (a, b) {
+  return thunkify(new Cal(a, b));
+};
+
+// or
+exports.create2 = function (a, b) {
+  var cal = new Cal(a, b);
+  cal.plus = thunkify(cal.plus, cal);
+  cal.minus = thunkify(cal.minus, cal);
+};
 ```
 
 # License
