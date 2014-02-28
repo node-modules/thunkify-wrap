@@ -5,7 +5,9 @@ var read = require('./support/read');
 var assert = require('assert');
 
 describe('thunkify(object)', function(){
-  before(thunkify.bind(null, read));
+  before(function () {
+    thunkify(read);
+  });
 
   it('should work when sync', function(done){
     read.sync('foo.txt')(function(err, res){
