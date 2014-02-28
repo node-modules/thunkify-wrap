@@ -13,8 +13,7 @@
   "dependencies": {},
   "devDependencies": {
     "mocha": "*",
-    "should": "*",
-    "co": "^3.0.4"
+    "should": "*"
   },
   "license": "MIT"
 }
