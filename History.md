@@ -1,4 +1,11 @@
 
+n.n.n / 2014-03-05
+==================
+
+  * add event in readme
+  * add test for event
+  * add event support
+
 n.n.n / 2014-02-28
 ==================
 
