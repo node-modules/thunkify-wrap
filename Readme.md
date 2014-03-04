@@ -32,6 +32,21 @@ var user = {
 module.exports = thunkify(user);
 ```
 
+## event support
+
+you can pass an event object, give end event name list, wrap event to thunk like this
+
+```
+var e = new EventEmitter();
+var end = thunkify(e, 'finish');
+
+yield end();
+or
+yield.end(['close', 'end']); // will cover `finish` event
+```
+
+when specified events emitted, this generator will go on. see more in the source code.
+
 ## ctx
 
 also you can pass `ctx` as contenxt into thunkify, and `thunkify(object)` will use object as the context by default.
