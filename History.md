@@ -1,12 +1,17 @@
 
-n.n.n / 2014-03-05
+0.0.5 / 2014-03-06
+==================
+
+  * check repeat thunkify
+
+0.0.4 / 2014-03-05
 ==================
 
   * add event in readme
   * add test for event
   * add event support
 
-n.n.n / 2014-02-28
+0.0.3 / 2014-02-28
 ==================
 
   * support methods
