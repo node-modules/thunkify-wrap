@@ -4,9 +4,12 @@ var thunkify = require('..');
 var read = require('./support/read');
 var assert = require('assert');
 
-describe('thunkify(object)', function(){
+describe.only('thunkify(object)', function(){
   before(function () {
     thunkify(read);
+    // thunkify twice still ok
+    thunkify(read);
+    console.log(read.async.toString());
   });
 
   it('should work when sync', function(done){

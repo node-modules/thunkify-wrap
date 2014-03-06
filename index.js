@@ -62,7 +62,10 @@ module.exports = function (input, ctx, methods) {
  */
 
 function thunkify(fn, ctx) {
-  return function(){
+  if (fn.toString() === thunk.toString()) {
+    return fn;
+  }
+  function thunk() {
     var args = [].slice.call(arguments);
     var results;
     var called;
@@ -87,7 +90,8 @@ function thunkify(fn, ctx) {
         fn.apply(ctx || this, results);
       }
     };
-  };
+  }
+  return thunk;
 }
 
 /**
