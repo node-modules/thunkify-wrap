@@ -3,10 +3,10 @@ var EventEmitter = require('events').EventEmitter;
 var assert = require('assert');
 var thunkify = require('..');
 
-describe('thunkify(event)', function () {
+describe('thunkify.event(event)', function () {
   it('should ok by globalEvents', function (done) {
     var e = new EventEmitter();
-    var end = thunkify(e, 'finish');
+    var end = thunkify.event(e, 'finish');
     e.on('data', function (data) {
       assert(data.foo === 'bar');
     });
@@ -21,7 +21,7 @@ describe('thunkify(event)', function () {
 
   it('should ok by custom events', function (done) {
     var e = new EventEmitter();
-    var end = thunkify(e, 'finish');
+    var end = thunkify.event(e, 'finish');
     e.on('data', function (data) {
       assert(data.foo === 'bar');
     });
@@ -36,7 +36,7 @@ describe('thunkify(event)', function () {
 
   it('should ok by custom events with array', function (done) {
     var e = new EventEmitter();
-    var end = thunkify(e, 'finish');
+    var end = thunkify.event(e, 'finish');
     e.on('data', function (data) {
       assert(data.foo === 'bar');
     });
@@ -52,7 +52,7 @@ describe('thunkify(event)', function () {
 
   it('should error by error', function (done) {
     var e = new EventEmitter();
-    var end = thunkify(e, 'finish');
+    var end = thunkify.event(e, 'finish');
     e.on('data', function (data) {
       assert(data.foo === 'bar');
     });

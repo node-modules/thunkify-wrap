@@ -9,7 +9,6 @@ describe.only('thunkify(object)', function(){
     thunkify(read);
     // thunkify twice still ok
     thunkify(read);
-    console.log(read.async.toString());
   });
 
   it('should work when sync', function(done){

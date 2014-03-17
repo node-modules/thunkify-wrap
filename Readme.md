@@ -38,7 +38,7 @@ you can pass an event object, give end event name list, wrap event to thunk like
 
 ```
 var e = new EventEmitter();
-var end = thunkify(e, 'finish');
+var end = thunkify.event(e, 'finish');
 
 yield end();
 or

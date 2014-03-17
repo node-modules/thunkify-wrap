@@ -23,10 +23,6 @@ module.exports = function (input, ctx, methods) {
     return thunkify(input, ctx);
   }
 
-  if (input instanceof EventEmitter) {
-    return eventToThunk(input, ctx);
-  }
-
   // thunkify object
   if (type === 'object') {
     if (Array.isArray(ctx)) {
@@ -101,7 +97,7 @@ function thunkify(fn, ctx) {
  * @param {Array} globalEvents
  * @return {Function}
  */
-function eventToThunk(e, globalEvents) {
+module.exports.event = function (e, globalEvents) {
   globalEvents = globalEvents || ['end'];
   return function (endEvents) {
     var called = false;
@@ -141,4 +137,4 @@ function eventToThunk(e, globalEvents) {
       });
     };
   };
-}
+};
