@@ -108,30 +108,22 @@ module.exports.event = function (e, globalEvents) {
     return function (done) {
       // clean
       function _done(err, data) {
-        e.removeListener('error', error);
+        if (called) {
+          return;
+        }
+        called = true;
+        e.removeListener('error', _done);
         endEvents.forEach(function (name) {
           e.removeListener(name, end);
         });
         done(err, data);
       }
 
-      function error(err) {
-        if (called) {
-          return;
-        }
-        called = true;
-        done(err);
-      }
-
       function end(data) {
-        if (called) {
-          return;
-        }
-        called = true;
-        done(null, data);
+        _done(null, data);
       }
 
-      e.once('error', error);
+      e.once('error', _done);
       endEvents.forEach(function (name) {
         e.once(name, end);
       });

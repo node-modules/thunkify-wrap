@@ -4,7 +4,7 @@ var thunkify = require('..');
 var read = require('./support/read');
 var assert = require('assert');
 
-describe.only('thunkify(object)', function(){
+describe('thunkify(object)', function(){
   before(function () {
     thunkify(read);
     // thunkify twice still ok
