@@ -1,5 +1,5 @@
 
-# thunkify-wrap [![Build Status](https://secure.travis-ci.org/dead-horse/node-thunkify-wrap.png)](http://travis-ci.org/dead-horse/node-thunkify-wrap)
+# thunkify-wrap [![Build Status](https://secure.travis-ci.org/node-modules/node-thunkify-wrap.svg)](http://travis-ci.org/node-modules/node-thunkify-wrap)
 
   Turn each node function in an object return a thunk.
   Turn a regular node function into one which returns a thunk,
