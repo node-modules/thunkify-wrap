@@ -7,7 +7,7 @@
 
 ## Installation
 
-[![NPM](https://nodei.co/npm/thunkify-wrap.png?downloads=true)](https://nodei.co/npm/thunkify-wrap/)
+[![NPM](https://nodei.co/npm/thunkify-wrap.svg?downloads=true)](https://nodei.co/npm/thunkify-wrap/)
 
 ## Example
 
