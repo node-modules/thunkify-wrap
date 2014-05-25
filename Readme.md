@@ -30,6 +30,8 @@ var user = {
 }
 
 module.exports = thunkify(user);
+// module.exports = thunkify(user, ['add', 'show']);
+// module.exports = thunkify(user, 'add');
 ```
 
 ## event support

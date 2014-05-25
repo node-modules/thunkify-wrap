@@ -29,6 +29,12 @@ module.exports = function (input, ctx, methods) {
       methods = ctx;
       ctx = input;
     }
+
+    if (typeof ctx === 'string') {
+      methods = [ctx];
+      ctx = input;
+    }
+
     ctx = ctx === undefined ? input : ctx;
     if (methods && methods.length) {
       methods.forEach(function (method) {
