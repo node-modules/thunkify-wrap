@@ -1,5 +1,10 @@
 
-1.1.0 / 2014-07-10
+1.0.1 / 2014-07-10
+==================
+
+ * improve performance
+
+1.0.0 / 2014-07-10
 ==================
 
   * Merge pull request #1 from node-modules/genify
