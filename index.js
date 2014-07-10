@@ -59,6 +59,8 @@ function wrapify(input, ctx, methods, wrapfn) {
   throw new TypeError('thunkify accept only `function` or `object`');
 }
 
+var slice = Array.prototype.slice;
+
 /**
  * Wrap a regular callback `fn` as a thunk.
  *
@@ -72,7 +74,7 @@ function thunkify(fn, ctx) {
     return fn;
   }
   function thunk() {
-    var args = [].slice.call(arguments);
+    var args = slice.call(arguments);
     var results;
     var called;
     var cb;

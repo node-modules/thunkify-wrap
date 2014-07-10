@@ -57,9 +57,9 @@ co(function* () {
 // $ node --harmony benchmark/base.js
 //
 //   thunkify benchmark
-//   node version: v0.11.12, date: Thu Jul 10 2014 18:28:27 GMT+0800 (CST)
+//   node version: v0.11.12, date: Thu Jul 10 2014 22:53:10 GMT+0800 (CST)
 //   Starting...
 //
-//   yield asyncThunk('a', 1) 1000000 times, use: 5976ms, qps: 167336.01070950468
-//   yield asyncGen('a', 1) 1000000 times, use: 15607ms, qps: 64073.81303261357
-//   yield* asyncGen('a', 1) 1000000 times, use: 9456ms, qps: 105752.96108291032
+//   yield asyncThunk('a', 1) 1000000 times, use: 5578ms, qps: 179275.72606669058
+//   yield asyncGen('a', 1) 1000000 times, use: 12610ms, qps: 79302.14115781126
+//   yield* asyncGen('a', 1) 1000000 times, use: 6817ms, qps: 146692.09329617134
