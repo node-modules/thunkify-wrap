@@ -14,7 +14,8 @@
   "devDependencies": {
     "co-mocha": "*",
     "mocha": "*",
-    "should": "*"
+    "should": "*",
+    "co": "*"
   },
   "license": "MIT"
 }
