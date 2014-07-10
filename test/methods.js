@@ -1,3 +1,4 @@
+'use strict';
 
 var assert = require('assert');
 var thunkify = require('..');
@@ -13,6 +14,15 @@ describe('methods', function () {
         assert(!cal2.minus(function () {}));
         done();
       });
+    });
+  });
+
+  describe('thunkify.genify(object) with ctx', function () {
+    it('should work ok', function* () {
+      var cal2 = new Cal(2, 1);
+      cal2 = thunkify.genify(cal2, ['plus']);
+      assert((yield* cal2.plus()) === 3);
+      assert(!cal2.minus(function () {}));
     });
   });
 });

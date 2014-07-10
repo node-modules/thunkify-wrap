@@ -16,11 +16,15 @@ var EventEmitter = require('events').EventEmitter;
  */
 
 module.exports = function (input, ctx, methods) {
+  return wrapify(input, ctx, methods, thunkify);
+};
+
+function wrapify(input, ctx, methods, wrapfn) {
   var type = typeof input;
 
   // thunkify function
   if (type === 'function') {
-    return thunkify(input, ctx);
+    return wrapfn(input, ctx);
   }
 
   // thunkify object
@@ -38,13 +42,13 @@ module.exports = function (input, ctx, methods) {
     ctx = ctx === undefined ? input : ctx;
     if (methods && methods.length) {
       methods.forEach(function (method) {
-        input[method] = thunkify(input[method], ctx);
+        input[method] = wrapfn(input[method], ctx);
       });
     } else {
       // thunkify all methods in input
       for (var key in input) {
         if (typeof input[key] === 'function') {
-          input[key] = thunkify(input[key], ctx);
+          input[key] = wrapfn(input[key], ctx);
         }
       }
     }
@@ -53,7 +57,7 @@ module.exports = function (input, ctx, methods) {
   }
 
   throw new TypeError('thunkify accept only `function` or `object`');
-};
+}
 
 /**
  * Wrap a regular callback `fn` as a thunk.
@@ -97,6 +101,25 @@ function thunkify(fn, ctx) {
 }
 
 /**
+ * Wrap a regular callback `fn` as a `GeneratorFunction`.
+ *
+ * @param {Function} fn
+ * @param {Object} [ctx]
+ * @return {Function}
+ */
+
+function genify(fn, ctx) {
+  if (fn.constructor.name === 'GeneratorFunction') {
+    return fn;
+  }
+  function* genify() {
+    var thunk = thunkify(fn);
+    return yield thunk.apply(ctx || this, arguments);
+  }
+  return genify;
+}
+
+/**
  * wrap a event object to a thunk
  * yield to wait the event emit `end`, `close`, `finish` or others
  * @param {Event} e
@@ -135,4 +158,17 @@ module.exports.event = function (e, globalEvents) {
       });
     };
   };
+};
+
+/**
+ * Expose `thunkify()`.
+ * @param {Function | Object} input
+ * @param {Object} [ctx]
+ * @param {Array}  [methods]
+ * @return {Function}
+ * @api public
+ */
+
+module.exports.genify = function (input, ctx, methods) {
+  return wrapify(input, ctx, methods, genify);
 };
