@@ -2,7 +2,7 @@ TESTS = test/*.js
 REPORTER = spec
 TIMEOUT = 5000
 MOCHA_OPTS =
-NPM_INSTALL = npm install --registry=http://registry.cnpmjs.org --cache=${HOME}/.npm/.cache/cnpm --disturl=http://dist.u.qiniudn.com
+NPM_INSTALL = npm install --registry=https://registry.npm.taobao.org
 install:
 	@$(NPM_INSTALL)
 
@@ -11,6 +11,7 @@ test: install
 		--harmony \
 		--reporter $(REPORTER) \
 		--timeout $(TIMEOUT) \
+		--require co-mocha \
 		$(MOCHA_OPTS) \
 		$(TESTS)
 

@@ -34,6 +34,20 @@ module.exports = thunkify(user);
 // module.exports = thunkify(user, 'add');
 ```
 
+## genify
+
+Wrap every function return a `GeneratorFunction`,
+that will be easy to write codes in only one way: `yield* fn()`.
+
+```js
+var genify = require('thunkify-wrap').genify;
+var fs = require('fs');
+
+fs.readFile = genify(fs.readFile);
+
+var content = yield* fs.readFile(__filename, 'utf8');
+```
+
 ## event support
 
 you can pass an event object, give end event name list, wrap event to thunk like this
