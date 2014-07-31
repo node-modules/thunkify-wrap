@@ -70,6 +70,10 @@ var slice = Array.prototype.slice;
  */
 
 function thunkify(fn, ctx) {
+  if (isGeneratorFunction(fn)) {
+    return fn;
+  }
+
   if (fn.toString() === thunk.toString()) {
     return fn;
   }
@@ -111,9 +115,10 @@ function thunkify(fn, ctx) {
  */
 
 function genify(fn, ctx) {
-  if (fn.constructor.name === 'GeneratorFunction') {
+  if (isGeneratorFunction(fn)) {
     return fn;
   }
+
   function* genify() {
     var thunk = thunkify(fn);
     return yield thunk.apply(ctx || this, arguments);
@@ -174,3 +179,7 @@ module.exports.event = function (e, globalEvents) {
 module.exports.genify = function (input, ctx, methods) {
   return wrapify(input, ctx, methods, genify);
 };
+
+function isGeneratorFunction(fn) {
+  return typeof fn === 'function' && fn.constructor.name === 'GeneratorFunction';
+}
