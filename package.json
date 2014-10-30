@@ -10,7 +10,9 @@
     "generators",
     "promise"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "enable": "1"
+  },
   "devDependencies": {
     "co-mocha": "*",
     "mocha": "*",

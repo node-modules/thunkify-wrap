@@ -5,6 +5,7 @@
 
 'use strict';
 var EventEmitter = require('events').EventEmitter;
+var enable = require('enable');
 
 /**
  * Expose `thunkify()`.
@@ -107,26 +108,6 @@ function thunkify(fn, ctx) {
 }
 
 /**
- * Wrap a regular callback `fn` as a `GeneratorFunction`.
- *
- * @param {Function} fn
- * @param {Object} [ctx]
- * @return {Function}
- */
-
-function genify(fn, ctx) {
-  if (isGeneratorFunction(fn)) {
-    return fn;
-  }
-
-  function* genify() {
-    var thunk = thunkify(fn);
-    return yield thunk.apply(ctx || this, arguments);
-  }
-  return genify;
-}
-
-/**
  * wrap a event object to a thunk
  * yield to wait the event emit `end`, `close`, `finish` or others
  * @param {Event} e
@@ -167,18 +148,21 @@ module.exports.event = function (e, globalEvents) {
   };
 };
 
-/**
- * Expose `thunkify()`.
- * @param {Function | Object} input
- * @param {Object} [ctx]
- * @param {Array}  [methods]
- * @return {Function}
- * @api public
- */
+if (enable.generator) {
+  /**
+   * Expose `genify()`.
+   * @param {Function | Object} input
+   * @param {Object} [ctx]
+   * @param {Array}  [methods]
+   * @return {Function}
+   * @api public
+   */
+  var genify = require('./genify')(thunkify);
+  module.exports.genify = function (input, ctx, methods) {
+    return wrapify(input, ctx, methods, genify);
+  };
+}
 
-module.exports.genify = function (input, ctx, methods) {
-  return wrapify(input, ctx, methods, genify);
-};
 
 function isGeneratorFunction(fn) {
   return typeof fn === 'function' && fn.constructor.name === 'GeneratorFunction';
