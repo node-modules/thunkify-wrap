@@ -15,6 +15,16 @@ describe('methods', function () {
         done();
       });
     });
+
+    it('should ignore not exist method ok', function (done) {
+      var cal2 = new Cal(2, 1);
+      cal2 = thunkify(cal2, ['plus', 'not-exist']);
+      cal2.plus()(function (err, res) {
+        assert(res === 3);
+        assert(!cal2.minus(function () {}));
+        done();
+      });
+    });
   });
 
   describe('thunkify.genify(object) with ctx', function () {

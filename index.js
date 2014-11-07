@@ -71,6 +71,10 @@ var slice = Array.prototype.slice;
  */
 
 function thunkify(fn, ctx) {
+    if (!fn) {
+      return fn;
+    }
+
   if (isGeneratorFunction(fn)) {
     return fn;
   }

@@ -53,7 +53,7 @@ describe('thunkify(fn)', function(){
 
   it('should work with node methods', function(done){
     fs.readFile = thunkify(fs.readFile);
-    
+
     fs.readFile('package.json')(function(err, buf){
       assert(!err);
       assert(Buffer.isBuffer(buf));
