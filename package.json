@@ -3,6 +3,10 @@
   "version": "1.0.4",
   "repository": "dead-horse/node-thunkify-wrap",
   "description": "Turn callbacks, arrays, generators, generator functions, and promises into a thunk",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
   "keywords": [
     "thunk",
     "co",
