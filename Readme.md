@@ -48,7 +48,7 @@ fs.readFile('package.json', 'utf8')(function(err, str){
 
 });
 
-// thunkfiy an object
+// thunkify an object
 var user = {
   add: function () {},
   show: function () {},
